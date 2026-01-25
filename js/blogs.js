@@ -5,9 +5,9 @@ if (typeof window.blogs === 'undefined') {
 
     // Lista de writeups disponibles
     writeupsList = [
-      { id: 'EJPTv2', title: 'Mi Experiencia con la EJPTv2', category: 'Blog', difficulty: 'Explicando mi experiencia con el EJPTv2', vulns: ['Certification', 'EJPTv2'], image:'/writeups/Blogs/EJPTv2/img/logo2.png' },
-      { id: 'Flaws', title: 'FLAWS - Hacking en la nube', category: 'Blog', difficulty: 'Explicando paso por paso como completar todos los niveles de la pagina Flaws', vulns: ['Writeup', 'Cloud Hacking'], image:'/writeups/Blogs/Flaws/img/logo2.png' },
-      { id: 'Wifi', title: 'Como hackear una red Wifi', category: 'Blog', difficulty: 'Explicando una de las maneras de obtener la contraseña de una red domestica', vulns: ['Aircrack-ng', 'Wifi Hacking'], image:'/writeups/Blogs/Wifi/img/logo2.png' },
+      { id: 'EJPTv2', title: 'Mi Experiencia con la EJPTv2', category: 'Blog', difficulty: 'Explicando mi experiencia con el EJPTv2', vulns: ['Certification', 'EJPTv2'], image:'/Writeups/Blogs/EJPTv2/img/logo2.png' },
+      { id: 'Flaws', title: 'FLAWS - Hacking en la nube', category: 'Blog', difficulty: 'Explicando paso por paso como completar todos los niveles de la pagina Flaws', vulns: ['Writeup', 'Cloud Hacking'], image:'/Writeups/Blogs/Flaws/img/logo2.png' },
+      { id: 'Wifi', title: 'Como hackear una red Wifi', category: 'Blog', difficulty: 'Explicando una de las maneras de obtener la contraseña de una red domestica', vulns: ['Aircrack-ng', 'Wifi Hacking'], image:'/Writeups/Blogs/Wifi/img/logo2.png' },
     ];
 
     currentWriteup = null;
