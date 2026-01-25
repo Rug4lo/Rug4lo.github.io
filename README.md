@@ -1,1 +1,1 @@
-<a href="https://Rug4lo.github.io/"><img src="/images/readme.png"></a>
+<a href="https://Rug4lo.github.io/"><img src="/assets/images/readme.png"></a>
