@@ -1,9 +1,9 @@
-// js/chalenges.js
+// js/Challenges.js
 
 if (typeof window.chalenges === 'undefined') {
   window.chalenges = class {
 
-    // Lista de chalenges disponibles
+    // Lista de Challenges disponibles
     writeupsList = [
       { id: 'Raxer', title: 'Crackmes.one - Raxer', category: 'Windows x86 (32-bit) - Reversing', difficulty: 'Reversing', vulns: ['Windows', 'Static reverse engineering'], image:'/Writeups/Chalenges/Raxer/img/logo2.png' },
       { id: 'IOLI', title: 'IOLI Levels 1/9', category: 'Windows x64 (64-bit) - Reversing', difficulty: 'Reversing', vulns: ['Windows', 'Static reverse engineering', 'Automatic keygen'], image:'/Writeups/Chalenges/IOLI/img/logo2.png' },
@@ -12,7 +12,7 @@ if (typeof window.chalenges === 'undefined') {
     currentWriteup = null;
 
     init() {
-      console.log('Inicializando Chalenges...');
+      console.log('Inicializando Challenges...');
       
       const desktopContent = document.getElementById('desktop-content');
       desktopContent.innerHTML = this.renderBrowser();
@@ -29,7 +29,7 @@ if (typeof window.chalenges === 'undefined') {
           <div class="browser-tabs">
             <div class="browser-tab-item active">
               <img src="assets/icons/logo2.png" width="15" height="15" alt="Logo">
-              <span class="tab-title">Chalenges</span>
+              <span class="tab-title">Challenges</span>
             </div>
           </div>
           <button class="browser-close" id="btn-close" title="Close">✕</button>
@@ -45,7 +45,7 @@ if (typeof window.chalenges === 'undefined') {
 
           <div class="browser-url">
             <span>🔒</span>
-            <input type="text" class="url-input" value="rug4lo://127.0.0.1:3000/Chalenges.html" readonly>
+            <input type="text" class="url-input" value="rug4lo://127.0.0.1:3000/Challenges.html" readonly>
           </div>
           <div class="browser-buttons">
             <button class="browser-btn" id="btn-menu">•••</button>
@@ -64,10 +64,10 @@ if (typeof window.chalenges === 'undefined') {
       const content = document.getElementById('writeups-content');
       
       if (this.currentWriteup) {
-        // Cargar chalenges individual desde archivo markdown
+        // Cargar Challenges individual desde archivo markdown
         this.loadWriteupDetail(content);
       } else {
-        // Cargar lista de chalenges
+        // Cargar lista de Challenges
         this.loadWriteupsList(content);
       }
     }
@@ -244,7 +244,7 @@ if (typeof window.chalenges === 'undefined') {
 
       return `
         <div class="writeups-list">
-          <h1>Chalenges</h1>
+          <h1>Challenges</h1>
           <p class="subtitle">Documentación detallada de máquinas completadas</p>
           <div class="writeups-grid">
             ${writeups}
@@ -338,7 +338,7 @@ if (typeof window.chalenges === 'undefined') {
     }
   };
 
-  // Inicializar chalenges
+  // Inicializar Challenges
   window.chalenges = new window.chalenges();
   window.chalenges.init();
 }
