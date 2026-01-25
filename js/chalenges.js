@@ -180,7 +180,7 @@ if (typeof window.chalenges === 'undefined') {
               <a href="https://github.com/rug4lo" target="_blank" title="GitHub">
                 <img src="assets/icons/github2.svg" class="rofi-icon" alt="GitHub" style="width:30px; height:30px;">
               </a>
-              <a href="https://linkedin.com/in/rug4lo" target="_blank" title="LinkedIn">
+              <a href="https://www.linkedin.com/in/ruben-garcia-lopez-aka-rug4lo-055496279" target="_blank" title="LinkedIn">
                 <img src="assets/icons/linkedin2.svg" class="rofi-icon" alt="LinkedIn" style="width:30px; height:30px;">
               </a>
               <a href="mailto:rubengarciavalladolid@gmail.com" title="Email">
