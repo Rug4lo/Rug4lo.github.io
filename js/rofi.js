@@ -66,7 +66,7 @@ if (typeof RofiMenu === 'undefined') {
         </div>
         <div class="rofi-item" data-type="chalenges">
           <img src="assets/icons/cert.svg" class="rofi-icon" alt="Blogs" style="width:30px; height:30px;">
-          <span class="rofi-label">Chalenges.elf</span>
+          <span class="rofi-label">Challenges.elf</span>
         </div>
         <div class="rofi-item" data-type="htb" data-url="https://app.hackthebox.com/users/1478590">
           <img src="assets/icons/htb.svg" class="rofi-icon" alt="HTB" style="width:30px; height:30px;">
