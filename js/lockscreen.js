@@ -103,7 +103,7 @@ class LockScreen {
               <span>Reboot</span>
             </button>
             <button class="lockscreen-btn" id="btn-shutdown">
-              <span class="icon">⚠︎</span>
+              <span class="icon">⏻</span>
               <span>Shutdown</span>
             </button>
           </div>
