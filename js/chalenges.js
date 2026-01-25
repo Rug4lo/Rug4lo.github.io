@@ -5,8 +5,8 @@ if (typeof window.chalenges === 'undefined') {
 
     // Lista de chalenges disponibles
     writeupsList = [
-      { id: 'Raxer', title: 'Crackmes.one - Raxer', category: 'Windows x86 (32-bit) - Reversing', difficulty: 'Reversing', vulns: ['Windows', 'Static reverse engineering'], image:'/writeups/Chalenges/Raxer/img/logo2.png' },
-      { id: 'IOLI', title: 'IOLI Levels 1/9', category: 'Windows x64 (64-bit) - Reversing', difficulty: 'Reversing', vulns: ['Windows', 'Static reverse engineering', 'Automatic keygen'], image:'/writeups/Chalenges/IOLI/img/logo2.png' },
+      { id: 'Raxer', title: 'Crackmes.one - Raxer', category: 'Windows x86 (32-bit) - Reversing', difficulty: 'Reversing', vulns: ['Windows', 'Static reverse engineering'], image:'/Writeups/Chalenges/Raxer/img/logo2.png' },
+      { id: 'IOLI', title: 'IOLI Levels 1/9', category: 'Windows x64 (64-bit) - Reversing', difficulty: 'Reversing', vulns: ['Windows', 'Static reverse engineering', 'Automatic keygen'], image:'/Writeups/Chalenges/IOLI/img/logo2.png' },
     ];
 
     currentWriteup = null;
