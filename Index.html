@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/icons/logo2.png" />
+  <title>Rug4lo - Red Team</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/lockscreen.css">
+  <link rel="stylesheet" href="css/rofi.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/whoami.css">
+  <link rel="stylesheet" href="css/writeups.css">
+  <link rel="stylesheet" href="css/browser.css">
+
+</head>
+<body>
+  <div id="mainpage"></div>
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/lib/marked.umd.js"></script>\
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/lockscreen.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lockscreen.init();
+    });
+  </script>
+</body>
+</html>

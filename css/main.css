@@ -1,0 +1,70 @@
+/* css/main.css - Paleta Nord oficial */
+:root {
+  /* Polar Night (oscuros) */
+  --nord0: #2e3440;    /* Fondo principal */
+  --nord1: #3b4252;    /* Fondo secundario */
+  --nord2: #434c5e;    /* Superficies */
+  --nord3: #4c566a;    /* Bordes/Textos muted */
+  --nord16: #899abb;    /* Bordes/Textos muted */
+
+  /* Snow Storm (claros) */
+  --nord4: #d8dee9;    /* Texto principal */
+  --nord5: #e5e9f0;    /* Texto secundario */
+  --nord6: #eceff4;    /* Fondos claros */
+
+  /* Frost (azules) */
+  --nord7: #8fbcbb;    /* Accent principal */
+  --nord8: #88c0d0;    /* Accent hover */
+  --nord9: #81a1c1;    /* Links */
+  --nord10: #5e81ac;   /* Subtle */
+
+  /* Aurora (colores) */
+  --nord11: #bf616a;   /* Rojo */
+  --nord12: #d08770;   /* Naranja */
+  --nord13: #ebcb8b;   /* Amarillo */
+  --nord14: #a3be8c;   /* Verde */
+  --nord15: #b48ead;   /* Púrpura */
+
+  /* EXTRAS */
+  --nord16: #eceef4;  /* Snow Storm Ultra */
+  --nord17: #d8dee9cc;/* Snow 75% */
+  --nord18: #e5e9f0cc;/* Snow 75% */
+  
+  /* CYBERPUNK NORD */
+  --cyber-frost:    #88c0d0ff;
+  --cyber-aurora:   #a3be8cff;
+  --cyber-pulse:    #81a1c1ff;
+  --cyber-glow:     #5e81acff;
+
+
+  /* Variables semánticas */
+  --bg: var(--nord0);
+  --surface: var(--nord1);
+  --text: var(--nord4);
+  --text-muted: var(--nord3);
+  --accent: var(--nord8);
+  --accent-dim: var(--nord10);
+  --border: var(--nord2);
+  --radius: 8px;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}

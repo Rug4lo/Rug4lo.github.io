@@ -1,0 +1,294 @@
+
+/* ===== ANIMACIONES ===== */
+.rofi-wrapper {
+  transition: all 300ms ease;
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.rofi-wrapper.rofi-close {
+  opacity: 0;
+  transform: scale(0.95) translateY(-20px);
+}
+
+
+/* ===== NAVEGADOR TIPO BROWSER ===== */
+.browser-tab {
+  position: absolute;
+  top: 60px;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--nord0);
+  border-radius: 12px;
+  border: 1px solid var(--nord3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: browserOpen 500ms ease forwards;
+}
+
+
+@keyframes browserOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+.browser-tab.rofi-open {
+  animation: browserOpen 500ms ease forwards;
+}
+
+
+.browser-tab.rofi-close {
+  animation: browserClose 500ms ease forwards;
+}
+
+
+@keyframes browserClose {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+}
+
+
+/* ===== BARRA DE PESTAÑAS (ARRIBA) ===== */
+.browser-tabsbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background: var(--nord1);
+  border-bottom: 1px solid var(--nord3);
+  flex-shrink: 0;
+}
+
+
+.browser-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+
+.browser-tab-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(46, 52, 64, 0.6);
+  border: 1px solid var(--nord3);
+  color: var(--nord5);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  max-width: 320px;
+}
+
+
+.browser-tab-item.active {
+  background: var(--nord2);
+  color: var(--nord4);
+}
+
+
+.tab-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Botón X arriba a la derecha */
+.browser-close {
+  width: 36px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--nord4);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+
+.browser-close:hover {
+  background: rgba(191, 97, 106, 0.18);
+  color: var(--nord11);
+}
+
+
+/* BARRA DEL NAVEGADOR */
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 3px 12px;
+  background: var(--nord2);
+  border-bottom: 1px solid var(--nord3);
+  flex-shrink: 0;
+}
+
+
+.browser-buttons {
+  display: flex;
+  gap: 0px;
+}
+
+
+.browser-btn {
+  width: 42px;
+  height: 42px;
+  background: var(--nord2);
+  border: 0px solid var(--nord3);
+  color: var(--nord4);
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 150ms ease;
+}
+
+
+.browser-btn:hover {
+  color: var(--nord8);
+  background: rgba(97, 138, 191, 0.18);
+}
+
+
+.browser-url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--nord0);
+  border: 1px solid var(--nord3);
+  border-radius: 14px;
+}
+
+
+.url-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--nord4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  outline: none;
+}
+
+
+/* CONTENIDO DEL NAVEGADOR */
+.browser-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0px;
+  background: var(--nord0);
+}
+
+
+.loading {
+  text-align: center;
+  color: var(--nord5);
+  padding: 40px;
+  font-family: var(--font-mono);
+}
+
+/* Terminal Styles */
+.terminal {
+  font-family: var(--font-mono);
+  color: var(--nord4);
+  background: var(--nord0);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--nord3);
+}
+
+.system-info {
+  margin-bottom: 20px;
+}
+
+.system-info h1 {
+  color: var(--nord8);
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.links {
+  color: var(--nord6);
+}
+
+.links a {
+  color: var(--nord10);
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.command-line {
+  margin: 10px 0;
+  color: var(--nord4);
+}
+
+.prompt {
+  color: var(--nord10);
+}
+
+.output {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  color: var(--nord5);
+  line-height: 1.5;
+}
+
+.output a {
+  color: var(--nord10);
+  text-decoration: none;
+}
+
+.output a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar personalizada */
+.browser-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+.browser-content::-webkit-scrollbar-track {
+  background: var(--nord1);
+}
+
+
+.browser-content::-webkit-scrollbar-thumb {
+  background: var(--nord3);
+  border-radius: 4px;
+}
+
+
+.browser-content::-webkit-scrollbar-thumb:hover {
+  background: var(--nord2);
+}
+
+/* Animación de entrada */
+@keyframes writeupsIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}

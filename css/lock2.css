@@ -1,0 +1,218 @@
+/* Pantalla de bloqueo */
+.lockscreen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--nord0) 0%, var(--nord1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  flex-direction: column;
+  gap: 40px;
+  animation: fadeIn 300ms ease-in-out;
+}
+
+/* Wallpaper overlay */
+.lockscreen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../assets/img/lockscreen.png') center/cover;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+/* Container principal */
+.lockscreen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Sección de bienvenida */
+.lockscreen-welcome {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lockscreen-welcome h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-mono);
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+.lockscreen-welcome .time {
+  font-size: 32px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.lockscreen-welcome .date {
+  font-size: 16px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+}
+
+/* Contenedor de inputs */
+.lockscreen-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 320px;
+}
+
+.lockscreen-input-group {
+  position: relative;
+}
+
+.lockscreen-input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  transition: all 200ms ease;
+  box-sizing: border-box;
+}
+
+.lockscreen-input-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.lockscreen-input-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(0, 255, 65, 0.05);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+
+.lockscreen-input-group input[type="password"] {
+  letter-spacing: 4px;
+}
+
+/* Sección de botones */
+.lockscreen-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.lockscreen-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.lockscreen-btn:hover {
+  background: rgba(0, 255, 65, 0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 255, 65, 0.2);
+}
+
+.lockscreen-btn .icon {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.lockscreen-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0.1;
+  overflow: hidden;
+}
+
+.lockscreen-bg-grid {
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    linear-gradient(0deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: slideGrid 20s linear infinite;
+}
+
+@keyframes slideGrid {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+/* Animación de desaparición */
+.lockscreen.fade-out {
+  animation: fadeOut 500ms ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+/* Cursor de terminal simulado */
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}

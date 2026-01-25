@@ -1,0 +1,157 @@
+/* css/desktop.css - Estilos para desktop.js */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  background: var(--nord0);
+  height: 100vh;
+}
+
+#mainpage {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* BARRA SUPERIOR */
+.desktop-taskbar {
+  margin: 0.8%;
+  border-radius: 8px;
+  width: 98.4%;
+  height: 35px;
+  background: var(--nord1);
+  border-bottom: 1px solid var(--nord2);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--nord5);
+  z-index: 10;
+  flex-shrink: 0;
+  animation: windowSlideIn 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 100px;
+}
+
+.taskbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.taskbar-user {
+  color: var(--nord4);
+  font-weight: 500;
+}
+
+.taskbar-user.active {
+  color: var(--nord10);
+  font-weight: 500;
+}
+
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.taskbar-time {
+  color: var(--nord8);
+}
+
+/* Header */
+.desktop-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: var(--nord1);
+  border-bottom: 1px solid var(--nord2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 1000;
+  font-size: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nord4);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--nord5);
+}
+
+/* Footer */
+.desktop-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: var(--nord1);
+  border-top: 1px solid var(--nord2);
+  z-index: 1000;
+}
+
+.taskbar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.taskbar-start button {
+  width: 40px;
+  height: 28px;
+  border: none;
+  background: var(--nord2);
+  color: var(--nord4);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Iconos de escritorio */
+#desktop-area {
+  height: 100vh;
+  position: relative;
+  padding: 60px 20px 60px 20px;
+}
+
+.desktop-icon {
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  width: 80px;
+  user-select: none;
+}
+
+.icon-emoji {
+  width: 64px;
+  height: 64px;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--nord2);
+  border-radius: 8px;
+  margin: 0 auto 4px;
+}
+
+.icon-label {
+  font-size: 11px;
+  color: var(--nord4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
