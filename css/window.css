@@ -1,0 +1,168 @@
+/* css/window.css - chrome shared by every desktop window */
+
+.window {
+  position: fixed;
+  z-index: 9000;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--window-radius);
+  box-shadow: var(--window-shadow);
+  color: var(--text);
+  font-family: var(--font-mono);
+  outline: none;
+}
+
+/* Accent border on the focused window, the way a Hyprland rice marks it. */
+.window:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--window-shadow), var(--window-accent-glow);
+}
+
+.window-header {
+  flex: 0 0 var(--window-header-height);
+  height: var(--window-header-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 6px 0 14px;
+
+  background: var(--nord1);
+  border-bottom: 1px solid var(--border);
+  cursor: move;
+  user-select: none;
+
+  /* Without this the browser scrolls the page instead of dragging on touch. */
+  touch-action: none;
+}
+
+.window-title {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--nord4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.window-btn {
+  width: 26px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease;
+}
+
+.window-btn:hover {
+  background: rgba(136, 192, 208, 0.12);
+  color: var(--accent);
+}
+
+.window-btn--close:hover {
+  background: rgba(191, 97, 106, 0.18);
+  color: var(--nord11);
+}
+
+.window-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  color: var(--accent);
+}
+
+/* min-height:0 is what lets the scrolling child actually shrink in a flex column. */
+.window-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.window-resizer {
+  position: absolute;
+  touch-action: none;
+}
+
+.window-resizer--right  { top: 0; right: 0; width: 10px; height: 100%; cursor: col-resize; }
+.window-resizer--bottom { bottom: 0; left: 0; height: 10px; width: 100%; cursor: row-resize; }
+.window-resizer--corner { bottom: 0; right: 0; width: 16px; height: 16px; cursor: se-resize; z-index: 1; }
+
+/* A maximized window cannot be moved or resized. */
+.window.is-maximized .window-header { cursor: default; }
+.window.is-maximized .window-resizer { display: none; }
+
+/* Keep this breakpoint in step with FLOATING_BREAKPOINT in js/system/window.js:
+   below it the window fills the work area and stops being draggable. */
+@media (max-width: 699px) {
+  /* A 34px title bar cannot hold a 44px target, and these three were 26x22 --
+     a third of a fingertip. The token is what the unfold keyframe clips
+     against, so raising it here keeps the animation in step by itself. */
+  :root {
+    --window-header-height: 44px;
+  }
+
+  .window {
+    border-radius: var(--radius);
+  }
+
+  .window-header {
+    cursor: default;
+  }
+
+  .window-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* A dead control: the window already fills the work area down here, so
+     maximise has nothing to do. Hidden rather than removed, because the
+     window code does not care whether it is on screen. */
+  .window-btn--maximize {
+    display: none;
+  }
+
+  .window-resizer {
+    display: none;
+  }
+}
+
+/* The unfold: the clip starts just under the title bar, so the first frame shows
+   only the bar and the body is revealed downwards. clip-path does not reflow and
+   does not squash the text, which is why it beats animating height or scaleY. */
+@keyframes windowUnfold {
+  from { clip-path: inset(0 0 calc(100% - var(--window-header-height)) 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes windowBodyDrop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.window.is-opening {
+  animation: windowUnfold var(--duration-window) var(--ease-out) both;
+}
+
+.window.is-opening .window-body {
+  animation: windowBodyDrop var(--duration-window) var(--ease-out) both;
+}

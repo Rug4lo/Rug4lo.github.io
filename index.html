@@ -2,6 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+
+  <!-- Every origin on the allow list is this one. Nothing inline, so no
+       'unsafe-inline' either. The fonts used to need fonts.googleapis.com and
+       fonts.gstatic.com in here; they are served from assets/fonts now, which
+       is what lets the whole policy be 'self'. frame-ancestors, HSTS and
+       X-Content-Type-Options only work as HTTP headers and GitHub Pages does
+       not send them. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="assets/icons/logo2.png" />
   <title>Rug4lo</title>
@@ -17,8 +26,9 @@
   <meta property="og:description" content="Pentester / Exploiter. Blogs y Writeups de Ciber">
   <meta property="og:url" content="https://rug4lo.github.io/">
   <meta property="og:image" content="https://rug4lo.github.io/assets/icons/logo.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1600">
+  <meta property="og:image:alt" content="Logo de Rug4lo">
   
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -26,31 +36,26 @@
   <meta name="twitter:description" content="Pentester / Exploiter. Blogs y Writeups de Ciber">
   <meta name="twitter:image" content="https://rug4lo.github.io/assets/icons/logo.jpg">
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
+  <!-- The font is only discovered once the CSS has parsed, so the body weight
+       is asked for up front. crossorigin is required on a font preload even
+       for a same-origin file. -->
+  <link rel="preload" href="assets/fonts/jetbrains-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/lockscreen.css">
   <link rel="stylesheet" href="css/rofi.css">
   <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/window.css">
   <link rel="stylesheet" href="css/whoami.css">
   <link rel="stylesheet" href="css/writeups.css">
   <link rel="stylesheet" href="css/browser.css">
+  <!-- highlight.js theme, self-hosted like everything else. -->
+  <link rel="stylesheet" href="css/vendor/github-dark.min.css">
 
 </head>
 <body>
   <div id="mainpage"></div>
-  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/lib/marked.umd.js"></script>\
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/lockscreen.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      lockscreen.init();
-    });
-  </script>
+  <script type="module" src="js/boot.js"></script>
 </body>
 </html>

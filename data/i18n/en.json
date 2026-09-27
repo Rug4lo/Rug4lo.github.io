@@ -1,0 +1,73 @@
+{
+  "language": {
+    "open": "Change language"
+  },
+  "shell": {
+    "menu": "Menu"
+  },
+  "workspaces": {
+    "label": "Workspaces",
+    "names": {
+      "launcher": "Launcher",
+      "whoami": "Whoami",
+      "machines": "Machines",
+      "blogs": "Blogs",
+      "challenges": "Challenges"
+    }
+  },
+  "lockscreen": {
+    "welcome": "WELCOME!",
+    "username": "Username",
+    "suspend": "Suspend",
+    "reboot": "Reboot",
+    "shutdown": "Shutdown"
+  },
+  "power": {
+    "restart": "Restart session",
+    "rebooting": "Rebooting...",
+    "shuttingDown": "Shutting down...",
+    "suspended": "Suspended"
+  },
+  "rofi": {
+    "title": "Rug4lo - Rofi",
+    "search": "Search"
+  },
+  "browser": {
+    "back": "Back",
+    "forward": "Forward",
+    "reload": "Reload",
+    "close": "Close",
+    "loading": "Loading...",
+    "loadingEntry": "Loading writeup...",
+    "noTags": "No tags",
+    "error": "Could not load the content.",
+    "errorBack": "Back to the launcher",
+    "onlyInSpanish": "This writeup is only available in Spanish."
+  },
+  "terminal": {
+    "reload": "Reload",
+    "close": "Close",
+    "maximize": "Maximize",
+    "restore": "Restore"
+  },
+  "sidebar": {
+    "connect": "Connect",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
+  "profile": {
+    "role": "Pentester • Red Teamer • Exploit developer"
+  },
+  "sections": {
+    "machines": {
+      "subtitle": "Detailed write-ups of completed machines"
+    },
+    "blogs": {
+      "subtitle": "TODO(content): Blogs subtitle"
+    },
+    "challenges": {
+      "subtitle": "TODO(content): Challenges subtitle"
+    }
+  }
+}

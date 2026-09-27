@@ -1,0 +1,73 @@
+{
+  "language": {
+    "open": "Cambiar de idioma"
+  },
+  "shell": {
+    "menu": "Menú"
+  },
+  "workspaces": {
+    "label": "Espacios de trabajo",
+    "names": {
+      "launcher": "Lanzador",
+      "whoami": "Whoami",
+      "machines": "Machines",
+      "blogs": "Blogs",
+      "challenges": "Challenges"
+    }
+  },
+  "lockscreen": {
+    "welcome": "¡BIENVENIDO!",
+    "username": "Usuario",
+    "suspend": "Suspender",
+    "reboot": "Reiniciar",
+    "shutdown": "Apagar"
+  },
+  "power": {
+    "restart": "Reiniciar sesión",
+    "rebooting": "Reiniciando...",
+    "shuttingDown": "Apagando...",
+    "suspended": "Suspendido"
+  },
+  "rofi": {
+    "title": "Rug4lo - Rofi",
+    "search": "Buscar"
+  },
+  "browser": {
+    "back": "Atrás",
+    "forward": "Adelante",
+    "reload": "Recargar",
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "loadingEntry": "Cargando writeup...",
+    "noTags": "Sin etiquetas",
+    "error": "No se pudo cargar el contenido.",
+    "errorBack": "Volver al lanzador",
+    "onlyInSpanish": "Este writeup solo está disponible en español."
+  },
+  "terminal": {
+    "reload": "Recargar",
+    "close": "Cerrar",
+    "maximize": "Maximizar",
+    "restore": "Restaurar"
+  },
+  "sidebar": {
+    "connect": "Conectar",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Correo"
+  },
+  "profile": {
+    "role": "Pentester • Red Teamer • Exploit developer"
+  },
+  "sections": {
+    "machines": {
+      "subtitle": "Documentación detallada de máquinas completadas"
+    },
+    "blogs": {
+      "subtitle": "TODO(contenido): subtítulo de Blogs"
+    },
+    "challenges": {
+      "subtitle": "TODO(contenido): subtítulo de Challenges"
+    }
+  }
+}

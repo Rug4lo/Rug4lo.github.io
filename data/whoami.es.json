@@ -1,0 +1,41 @@
+{
+  "user": "rug4lo",
+  "host": "system",
+  "blocks": [
+    {
+      "command": "whoami",
+      "output": [
+        "Pentester • Red Teamer • Desarrollador de exploits"
+      ]
+    },
+    {
+      "command": "cat ~/perfil.md",
+      "output": [
+        "Me llamo Rubén. Me gustan los ordenadores desde pequeño.",
+        "Cuando descubrí el mundo de la ciberseguridad me enamoré de él.",
+        "Ahora intento aprender día a día, mejorar mis habilidades y ayudar a la comunidad con distintas herramientas y writeups de máquinas."
+      ]
+    },
+    {
+      "command": "cat ~/all.txt | grep certs",
+      "list": true,
+      "output": [
+        "- OSCP",
+        "- OSCP+",
+        "- eJPTv2",
+        "- DFE, NDE, EHE",
+        "- B2"
+      ]
+    },
+    {
+      "command": "ls lenguajes",
+      "list": true,
+      "output": [
+        "[+] Python ",
+        "[+] C/C++",
+        "[+] Assembly",
+        "[+] Bash / PowerShell"
+      ]
+    }
+  ]
+}

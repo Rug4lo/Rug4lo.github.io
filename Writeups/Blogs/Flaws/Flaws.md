@@ -181,7 +181,7 @@ Y creamos una montura con el volumen que queramos
 sudo mount /dev/xvdf1 /mnt
 ```
 
-Ahora que esta montado en el /mnt simplemente nos tenemos que ir al /mtn/home/ubuntu y abrir el `setupNginx.sh`
+Ahora que esta montado en el /mnt simplemente nos tenemos que ir al /mnt/home/ubuntu y abrir el `setupNginx.sh`
 
 ### Prevención del nivel 4
 

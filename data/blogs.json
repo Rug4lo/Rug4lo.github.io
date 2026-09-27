@@ -1,0 +1,38 @@
+{
+  "tabTitle": "Blogs",
+  "addressBar": "rug4lo://127.0.0.1:3000/Blogs",
+  "heading": "Blogs",
+  "contentDir": "Writeups/Blogs",
+  "items": [
+    {
+      "id": "EJPTv2",
+      "title": "Mi Experiencia con la EJPTv2",
+      "category": "Blog",
+      "description": "Explicando mi experiencia con el EJPTv2",
+      "tags": [
+        "Certification",
+        "EJPTv2"
+      ]
+    },
+    {
+      "id": "Flaws",
+      "title": "FLAWS - Hacking en la nube",
+      "category": "Blog",
+      "description": "Explicando paso por paso como completar todos los niveles de la pagina Flaws",
+      "tags": [
+        "Writeup",
+        "Cloud Hacking"
+      ]
+    },
+    {
+      "id": "Wifi",
+      "title": "Como hackear una red Wifi",
+      "category": "Blog",
+      "description": "Explicando una de las maneras de obtener la contraseña de una red domestica",
+      "tags": [
+        "Aircrack-ng",
+        "Wifi Hacking"
+      ]
+    }
+  ]
+}

@@ -1,8 +1,9 @@
-/* css/rofi.css - ROFI COMO VENTANA FLOTANTE */
-
+/* The desktop root: wallpaper, and the column the bar and the work area sit in.
+   It lives here for historical reasons; css/desktop.css points at it. */
 #mainpage {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: 
     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
     url('../assets/images/lockscreen.png') center/cover no-repeat;
@@ -18,18 +19,22 @@
   transition: all 0.2s ease;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
 
 
 .rofi-desktop {
   flex: 1;
+  /* A flex item defaults to min-height:auto, which means it will not shrink
+     below its content. Once the phone layout put the writeups list in normal
+     flow instead of absolutely positioned, this stretched to 3120px in an
+     844px viewport and pushed the menu bar far below the fold. */
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14vh 20vw;      
+  /* Top and bottom no longer match: same 28vh of vertical padding as before,
+     just moved 8vh of it to the bottom, which slides the centred panel up
+     without changing how much room it has. */
+  padding: 6vh 20vw 22vh;
   z-index: 2;
 }
 
@@ -39,6 +44,11 @@
   max-width: 1200px;
   max-height: 600px;
   min-width: 600px;
+  /* Left exactly as it was. `min(500px, 100%)` looked like the adaptive answer
+     and is not: a percentage min-height on a flex item resolves as indefinite,
+     so the floor vanished and the panel came out 407px instead of 502. The
+     phone cases are handled by the two media queries at the end of this file,
+     which is the only place that knows there is no room. */
   min-height: 500px;
   background: var(--nord1);
   border: 1px solid var(--nord2);
@@ -64,62 +74,12 @@
   }
 }
 
-/* TITLEBAR DE VENTANA */
-.rofi-titlebar {
-  padding: 12px 16px;
-  background: linear-gradient(135deg, var(--nord2) 0%, rgba(76, 86, 106, 0.5) 100%);
-  border-bottom: 1px solid var(--nord3);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: var(--nord4);
-  font-weight: 500;
-  user-select: none;
-  flex-shrink: 0;
-}
 
-.rofi-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
 
-.rofi-title-icon {
-  font-size: 14px;
-}
 
-.rofi-window-controls {
-  display: flex;
-  gap: 8px;
-}
 
-.rofi-window-btn {
-  width: 28px;
-  height: 28px;
-  background: transparent;
-  border: 1px solid var(--nord3);
-  border-radius: 4px;
-  color: var(--nord5);
-  cursor: pointer;
-  font-size: 12px;
-  transition: all 150ms ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.rofi-window-btn:hover {
-  background: rgba(136, 192, 208, 0.15);
-  border-color: var(--nord8);
-  color: var(--nord8);
-}
 
-.rofi-window-btn.close:hover {
-  background: rgba(83, 42, 46, 0.2);
-  border-color: var(--nord11);
-  color: var(--nord11);
-}
 
 /* HEADER BÚSQUEDA */
 .rofi-header {
@@ -187,15 +147,7 @@
   border-radius: 4px;
   font-size: 10px;
   color: var(--nord5);
-  cursor: pointer;
-  transition: all 100ms ease;
   white-space: nowrap;
-}
-
-.filter-btn:hover {
-  background: rgba(136, 192, 208, 0.3);
-  border-color: var(--nord8);
-  color: var(--nord8);
 }
 
 /* CONTENIDO */
@@ -212,6 +164,10 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   grid-template-rows: repeat(4, 1fr);     
+  /* Fills down the first column and then the second, which is what keeps the
+     sections on the left and the links on the right now that the data is in
+     logical order rather than alternating. */
+  grid-auto-flow: column;
   gap: 1px 14px;
   overflow-y: auto;
   border-right: none;         
@@ -235,32 +191,49 @@
   background: var(--nord8);
 }
 
+/* Buttons, but without the five things that made them read as generated:
+   a hand-mixed rgba fill off the palette, a magic 10px radius, `transition:
+   all`, and a hover that lifted the card and lit a glow under it. What is
+   left is a solid surface from the palette and one signal -- the border turns
+   the accent colour, the same way Hyprland marks the focused window. */
 .rofi-item {
-  padding: 0px 10px;
-  background: rgba(52, 62, 82, 0.6);
+  /* These are real <button> and <a> elements now, so the keyboard reaches them,
+     which means each tag's own styling has to be neutralised. */
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+
+  padding: 0 10px;
+  background: var(--nord2);
+  /* Same colour as the fill, so it is invisible until the accent lands on it
+     and nothing moves when it does. */
   border: 1px solid var(--nord2);
-  border-radius: 10px;
+  border-radius: var(--radius);
   cursor: pointer;
-  display: flex;                      
-  flex-direction: row;                
-  align-items: center;               
-  gap: 10px;                        
-  text-align: left;                  
-  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  height: 80%;                       
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  transition: background-color var(--duration-fast) ease,
+              border-color var(--duration-fast) ease;
+  height: 80%;
 }
 
+/* Solid steps, no alpha, and the card stays exactly where it is. */
 .rofi-item:hover {
-  background: rgba(136, 192, 208, 0.1);
+  background: var(--nord3);
   border-color: var(--nord8);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(136, 192, 208, 0.15);
 }
 
-.rofi-icon {
-  font-size: 18px;
-  flex-shrink: 0;                     
-  text-align: center;
+/* Black, on purpose. brightness(0) and no invert: the files in use are black
+   fills already, and forcing it here keeps the set uniform if one of them is
+   ever swapped for a coloured logo.
+   Scoped to a launcher item: the writeups sidebar used to share this class,
+   so this filter reached its social logos and turned them black too. */
+.rofi-item .rofi-icon {
+  flex-shrink: 0;
+  filter: brightness(0);
 }
 
 .rofi-label {
@@ -270,8 +243,19 @@
   word-wrap: break-word;
 }
 
-.rofi-item:hover .rofi-label {
-  color: var(--nord8);
+/* Brightens rather than turning cyan: the accent is already doing its job on
+   the border, and cyan on --nord3 only measures 3.69:1. */
+.rofi-item:hover .rofi-label,
+.rofi-item:focus-visible .rofi-label {
+  color: var(--nord6);
+}
+
+/* The keyboard gets the same row highlight as the mouse, plus the outline. */
+.rofi-item:focus-visible {
+  outline: 2px solid var(--nord8);
+  outline-offset: 2px;
+  background: var(--nord3);
+  border-color: var(--nord8);
 }
 
 /* SIDEBAR */
@@ -279,66 +263,13 @@
   display: none;             
 }
 
-.rofi-socials {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
-.social-link {
-  padding: 10px;
-  background: rgba(76, 86, 106, 0.3);
-  border: 1px solid var(--nord2);
-  border-radius: 4px;
-  color: var(--nord5);
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  font-size: 9px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 150ms ease;
-}
 
-.social-link:hover {
-  background: rgba(136, 192, 208, 0.12);
-  border-color: var(--nord8);
-  color: var(--nord8);
-}
 
-.social-link .icon {
-  font-size: 14px;
-}
 
-/* FOOTER */
-.rofi-footer {
-  flex-shrink: 0;
-  padding: 10px 18px;
-  background: rgba(52, 62, 82, 0.8);
-  border-top: 1px solid var(--nord2);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: 11px;
-}
 
-.rofi-back {
-  display: none;
-}
 
-.rofi-back:hover {
-  background: rgba(136, 192, 208, 0.1);
-  border-color: var(--nord8);
-  color: var(--nord8);
-}
 
-.rofi-user {
-  color: var(--nord5);
-  font-family: var(--font-mono);
-  opacity: 0.85;
-}
 
 .rofi-sidebar::-webkit-scrollbar {
   width: 4px;
@@ -351,4 +282,159 @@
 .rofi-sidebar::-webkit-scrollbar-thumb {
   background: var(--nord3);
   border-radius: 2px;
+}
+
+/* --- phone ------------------------------------------------------------------
+   Last in the file on purpose. A media query adds no specificity, so with this
+   block sitting above the base rules the base `grid-template-columns:
+   repeat(2, 1fr)` won and the single column never happened -- the measurements
+   said nothing was lost, and only a screenshot showed the intent had not
+   landed. */
+/* Below the breakpoint the launcher fills the screen instead of floating.
+   min-width: 600px cannot shrink, so on a 390px phone the panel ran from -50
+   to 550 -- half of it off the screen, and body has overflow:hidden, so that
+   half was simply gone. This is also the floor the app drawer will build on. */
+@media (max-width: 699px) {
+  .rofi-desktop {
+    padding: var(--desktop-gap);
+  }
+
+  /* Flat. A 16px radius and a 50px cyan halo around a panel that now covers
+     the whole screen read as a floating dialog, which is the opposite of what
+     this is. The backdrop blur goes too: it is a full-screen repaint on a
+     phone for an effect nothing sits behind any more. */
+  .rofi-wrapper {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    max-width: none;
+    max-height: none;
+    border-radius: var(--radius);
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  /* #desktop-content is a flex item of .rofi-desktop, so with the default
+     min-width:auto it is sized by its content and pushes straight past the
+     container -- it measured 568px inside a 390px screen. The content that
+     set that floor is the search row: the filter chips are nowrap, so they
+     never gave way. */
+  #desktop-content {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    /* .rofi-desktop centres its items, so without this the app is sized by
+       its content instead of filling what the two bars leave. */
+    align-self: stretch;
+  }
+
+  /* SXMO's menu is a filter field and a list of entries, and nothing else.
+     The chips -- files, folders, term, window -- are aria-hidden decoration
+     that do nothing, and they were costing a whole row of a screen that has
+     none to give. The wallpaper behind the header is noise at this size, and
+     the "Rug4lo - Rofi" label had 70px of top padding and landed on top of
+     the chips. */
+  .rofi-header {
+    margin: var(--desktop-gap);
+    padding: 0;
+    border: 0;
+    background: none;
+    gap: 0;
+  }
+
+  .rofi-filters,
+  .rofi-text {
+    display: none;
+  }
+
+  .rofi-search {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    font-size: 14px;
+  }
+
+  /* One column. Two of them could not shrink below 568px, because a grid
+     track of 1fr never goes under its min-content and an item's min-content
+     is 256px. This is the floor, not the design: M2 turns this into the app
+     drawer proper. */
+  /* auto-flow back to row: the desktop fills by column, and with one column
+     and no explicit rows that would lay the eight entries out sideways. */
+  .rofi-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    align-content: start;
+    padding: var(--desktop-gap);
+    gap: 6px;
+  }
+
+  .rofi-item {
+    min-width: 0;
+    height: auto;
+    min-height: 52px;
+    padding: 12px;
+  }
+
+  .rofi-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Where the sections end and the outside links begin. The adjacent sibling
+     is exactly the first link after the last app, so no marker has to be put
+     into the markup for it. */
+  .rofi-item--app + .rofi-item--link {
+    margin-top: 15px;
+    position: relative;
+  }
+
+  .rofi-item--app + .rofi-item--link::before {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: -11px;
+    height: 1px;
+    background: var(--nord3);
+  }
+}
+
+/* --- landscape phone -------------------------------------------------------
+   430px is the tallest phone there is when turned sideways (932x430), and no
+   window anybody browses in is that short, so this cannot reach a desktop.
+   What it fixes: the decorative "Rug4lo - Rofi" label carries
+   `padding: 70px 8px 0 50px`, which made the header 162px of a 390px screen
+   and left the entries 71px to share. */
+@media (max-height: 430px) {
+  .rofi-desktop {
+    padding: var(--desktop-gap);
+  }
+
+  /* 500px of floor in a 390px screen. Only here: keyed any higher, this also
+     caught an ordinary desktop window with the dev tools docked at the bottom
+     and moved the panel that was fine where it was. */
+  .rofi-wrapper {
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
+
+  /* .rofi-desktop centres its items, so a panel taller than the space pokes
+     out of both ends at once. */
+  #desktop-content {
+    align-self: stretch;
+    min-height: 0;
+  }
+
+  .rofi-text {
+    display: none;
+  }
+
+  .rofi-header {
+    margin: var(--desktop-gap);
+    padding: 8px;
+    gap: 8px;
+  }
 }

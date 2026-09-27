@@ -1,11 +1,8 @@
 
 #writeups-browser{
-  --bg:#222933;
-  --panel-left:#0b0f14;
-  --panel-left-overlay: rgba(0,0,0,.45);
+  --panel-bg:#222933;
 
-  --text:#cbd5e1;
-  --muted:#8b97a7;
+  --panel-text:#cbd5e1;
   --line: rgba(255,255,255,.12);
 
   --pill-bg: rgba(255,255,255,.06);
@@ -13,15 +10,11 @@
 
   --shadow: 0 18px 50px rgba(0,0,0,.55);
 
-  --accent:#5fe7c6;
-  --radius: none;
-
   --sidebar-w: 20%;
-  --content-max: 1120px;
   --gap: 0px;
 
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial;
+  --sans: var(--font-sans);   /* the same stack, declared once in main.css */
 }
 
 .writeups-container{
@@ -33,8 +26,8 @@
   grid-template-columns: var(--sidebar-w) 1fr;
   gap: var(--gap);
 
-  background: var(--bg);
-  color: var(--text);
+  background: var(--panel-bg);
+  color: var(--panel-text);
   font-family: var(--sans);
   border-radius: var(--radius);
   overflow: hidden; 
@@ -100,56 +93,11 @@
   font-size: 14px;
   color: rgba(230,237,246,.78);
 }
-.profile-bio{
-  display: none; 
-}
 
-/* Navegación tipo “pills” */
-.writeups-nav{
-  margin: 20px 0 0 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  border-radius: 0;
-}
 
-.writeups-nav h3{
-  display:none; 
-}
 
-.writeups-nav ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
 
-.writeups-nav a{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 
-  padding: 10px 16px;
-  border-radius: 999px;
-
-  background: var(--pill-bg);
-  border: 2px solid var(--pill-border);
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-
-  font-size: 13px;
-  letter-spacing: .2px;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-
-.writeups-nav a:hover{
-  transform: translateY(-1px);
-  border-color: rgba(255,255,255,.35);
-  background: rgba(255,255,255,.10);
-}
 
 .sidebar-contact{
   margin-top: 26px;
@@ -159,6 +107,23 @@
   text-align: center;
 }
 .sidebar-contact h3{ display:none; }
+
+/* White, uniform. The source files carry their own brand colours -- a grey
+   GitHub mark, a blue LinkedIn one, a full-colour envelope -- which read badly
+   on a dark panel and did not match each other either. brightness(0) flattens
+   whatever each file brings and invert(1) turns the result white. */
+.contact-icon {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.social-links a:hover .contact-icon,
+.social-links a:focus-visible .contact-icon {
+  opacity: 1;
+}
 
 .writeups-main{
   height: 100%;
@@ -180,11 +145,18 @@
   display:none; 
 }
 
+/* Nothing to say yet, so nothing is said. A section whose subtitle is still a
+   TODO(...) placeholder renders it empty rather than publishing the note, and
+   an empty one takes no room. */
+.subtitle:empty {
+  display: none;
+}
+
 .writeups-grid{
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
-  max-width: auto;
+  max-width: none;
   margin: 20px;
 }
 
@@ -201,12 +173,6 @@
   background: transparent;
 }
 
-.card-header{
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 18px;
-  align-items: center;
-}
 
 .card-title{
   margin: 0;
@@ -225,13 +191,6 @@
   font-family: var(--sans);
 }
 
-.card-difficulty{
-  border: 0;
-  background: rgba(0,0,0,.18);
-  color: rgba(203,213,225,.75);
-  font-size: 12px;
-  padding: 8px 12px;
-}
 
 .writeup-link{
   display: inline-block;
@@ -249,30 +208,7 @@
   max-width: 980px;
 }
 
-.btn-back{
-  appearance: none;            
-  height: 34px;
-  padding: 0 14px;
-  border-radius: 999px;        
-  border: 1px solid var(--pill-border);
-  background: var(--pill-bg);
-  color: rgba(255,255,255,.86);
 
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 34px;
-
-  cursor: pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-
-.writeup-content pre{
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.25);
-  border-radius: 14px;
-  padding: 14px;
-  overflow: auto;
-}
 
 
 a:focus-visible,
@@ -281,26 +217,7 @@ button:focus-visible{
   outline-offset: 2px;
 } 
 
-@media (max-width: 980px){
-  .writeups-container{
-    grid-template-columns: 1fr;
-  }
-  .writeups-sidebar{
-    padding: 36px 22px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-  .writeups-main{
-    padding: 34px 22px;
-  }
-  .profile-info h2{
-    font-size: 38px;
-  }
-  .writeups-list h1{
-    font-size: 34px;
-    margin-bottom: 26px;
-  }
-}
+
 
 .social-links{
   display: inline-flex;
@@ -336,7 +253,7 @@ button:focus-visible{
 #writeups-browser .writeups-sidebar,
 #writeups-browser .writeups-main{
   scrollbar-width: thin;
-  scrollbar-color: var(--cyber-glow) var(--nord2); 
+  scrollbar-color: var(--nord10) var(--nord2); 
 } 
 
 #writeups-browser .writeups-sidebar::-webkit-scrollbar,
@@ -380,41 +297,9 @@ hr {
   );
 }
 
-#writeups-browser #btn-nav-back{
-  appearance: none;              
-  width: auto;            
-  min-width: 42px;      
-  height: 34px;
-  padding: 0 14px;
-  border-radius: 999px;         
-  border: 1px solid var(--pill-border);
-  background: var(--pill-bg);
-  color: rgba(255,255,255,.86);
-  white-space: nowrap;    
 
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 34px;
 
-  cursor: pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
 
-#writeups-browser #btn-nav-back:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.35);
-}
-
-#writeups-browser #btn-nav-back:focus-visible{
-  outline: 2px solid #5e81ac;
-  outline-offset: 2px;
-}
-
-#writeups-browser #btn-nav-back:disabled{
-  opacity: .45;                  
-  cursor: default;
-}
 
 /* Contenedor del markdown renderizado */
 .writeup-content-md {
@@ -434,7 +319,7 @@ hr {
 }
 
 .writeup-content-md code {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.90em;
   background: rgba(255,255,255,0.06);
   padding: 0.12em 0.35em;
@@ -447,7 +332,12 @@ hr {
   border-top: 1px solid rgba(255,255,255,0.12);
 }
 
+/* Screenshots come in at their natural size -- the widest in the corpus is
+   1251px -- and with no cap they forced the whole content panel to scroll
+   sideways, on the desktop as well as on a phone. */
 .writeup-content-md img {
+  max-width: 100%;
+  height: auto;
   margin: 15px 0px 0px 0px;
   border: solid 1px #3b4252;
   border-radius: 6px;
@@ -477,7 +367,7 @@ hr {
   overflow: auto;
   border-radius: 12px;
   background: #2e3440;
-  border: 1px solid 2e3440(255,255,255,0.10);
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 .writeup-content-md pre code {
@@ -520,7 +410,7 @@ hr {
 }
 
 .vuln-tag {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   padding: 4px 8px;
   border-radius: 999px;
@@ -541,9 +431,6 @@ hr {
   align-items: center;
 }
 
-.card-difficulty-row{
-  margin-top: 10px;
-}
 
 /* Imagen */
 .writeup-thumb{
@@ -552,13 +439,130 @@ hr {
   object-fit: cover;
 }
 
-/* Responsive: en móvil apila imagen abajo */
-@media (max-width: 700px){
-  .writeup-card .card-body{
+/* --- narrow --------------------------------------------------------------
+   Both breakpoints live at the end of the file. A media query adds no
+   specificity, so with this block above the base rules the base won on order
+   and the padding in here had never applied. */
+@media (max-width: 980px){
+  .writeups-container{
     grid-template-columns: 1fr;
   }
-  .writeup-thumb{
-    width: 100%;
-    height: 1060px;
+  /* Qualified with the id to match #writeups-browser .writeups-sidebar further
+     down the file. Without it the padding here lost on specificity and had
+     never once applied. */
+  #writeups-browser .writeups-sidebar{
+    padding: 36px 22px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
   }
+  .writeups-main{
+    padding: 34px 22px;
+  }
+  .profile-info h2{
+    font-size: 38px;
+  }
+  .writeups-list h1{
+    font-size: 34px;
+    margin-bottom: 26px;
+  }
+}
+
+/* Stacks the thumbnail under the card body on a narrow screen.
+   The height read 1060px, against 85px on the desktop: every card in the list
+   was a metre tall and the list could not be used. */
+@media (max-width: 699px){
+  /* One scrolling column, so the profile scrolls away instead of holding the
+     top of the screen. It used to be a grid row while only .writeups-main
+     scrolled, which pinned ~300px of an 844px screen -- 36% of it -- behind
+     the list for as long as you were reading. */
+  #writeups-browser .writeups-container{
+    display: block;
+    overflow: auto;
+  }
+
+  /* height:100% on both of these, against a container that is now a block,
+     made each of them exactly one screen tall -- so the profile filled the
+     view and the list started below the fold. */
+  #writeups-browser .writeups-main{
+    height: auto;
+    overflow: visible;
+    padding: 4px 16px 20px;
+  }
+
+  #writeups-browser .writeups-sidebar{
+    height: auto;
+    overflow: visible;
+    padding: 18px 16px 14px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  /* Name and role only. The logo and the social links were most of those
+     300px, and every one of those links is an entry in the menu anyway. */
+  .profile-avatar,
+  .sidebar-contact{
+    display: none;
+  }
+
+  .profile-info h2{
+    font-size: 26px;
+  }
+
+  /* A small square to the left of the title, the way a phone list does it,
+     rather than a full-width banner above it: the banner made every card half
+     a screen tall, so the list showed one machine at a time. */
+  .writeup-card{
+    padding: 14px 0;
+  }
+
+  .writeup-card .card-body{
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .writeup-card .card-right{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .writeup-card .card-left{
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .writeup-thumb{
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+  }
+
+  /* The only way into a writeup was a 21px-tall line of text. The link becomes
+     the block it sits in so the whole row is a target. */
+  .card-title{
+    font-size: 17px;
+    margin: 0;
+  }
+
+  .writeup-card .writeup-title-link{
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .writeups-grid{
+    margin: 0;
+  }
+}
+/* Notice that this writeup is not translated into the active language yet. */
+.writeup-notice {
+  margin: 0 0 18px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--nord13);
+  border-radius: var(--radius);
+  background: rgba(235, 203, 139, 0.06);
+  color: var(--panel-text);
+  font-size: 13px;
 }

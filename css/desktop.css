@@ -1,4 +1,8 @@
 /* css/desktop.css - Estilos para desktop.js */
+/* dvh, with vh as the fallback for anything that does not know it. On a phone
+   100vh is the height the viewport would have with the browser UI collapsed,
+   so the shell was taller than the screen and the bottom of it -- and with
+   overflow:hidden, any way back to it -- fell off the edge. */
 body {
   margin: 0;
   padding: 0;
@@ -6,32 +10,33 @@ body {
   font-family: var(--font-mono);
   background: var(--nord0);
   height: 100vh;
+  height: 100dvh;
 }
 
-#mainpage {
-  width: 100vw;
-  height: 100vh;
-}
+/* #mainpage is declared in css/rofi.css, which owns the wallpaper. The copy
+   that used to sit here only repeated its width and height. */
 
 /* BARRA SUPERIOR */
+/* The gap is a fixed token and not a percentage. With `margin: 0.8%` the space
+   around the bar grew on a wide screen and pinched shut on a narrow one, and
+   the same number has to match the gaps between windows later on. */
 .desktop-taskbar {
-  margin: 0.8%;
-  border-radius: 8px;
-  width: 98.4%;
+  margin: var(--desktop-gap);
+  border-radius: var(--radius);
   height: 35px;
   background: var(--nord1);
-  border-bottom: 1px solid var(--nord2);
-  padding: 0 16px;
+  border: 1px solid var(--nord2);
+  padding: 0 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--nord5);
   z-index: 10;
   flex-shrink: 0;
   animation: windowSlideIn 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  min-width: 100px;
 }
 
 .taskbar-left {
@@ -46,7 +51,7 @@ body {
 }
 
 .taskbar-user.active {
-  color: var(--nord10);
+  color: var(--nord8);
   font-weight: 500;
 }
 
@@ -60,98 +65,336 @@ body {
   color: var(--nord8);
 }
 
-/* Header */
-.desktop-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: var(--nord1);
-  border-bottom: 1px solid var(--nord2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  z-index: 1000;
-  font-size: 12px;
+/* --nord3 measured 1.36:1 here, so the separators had all but vanished. This
+   one sits at 3.74:1: clearly quieter than the text it separates, still there. */
+.taskbar-sep {
+  color: var(--nord9);
 }
 
-.header-left {
-  display: flex;
+/* Inline SVG takes its colour from the text, so one rule sizes every icon in
+   the bar and the theme keeps owning the colour. */
+.desktop-taskbar .icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+.taskbar-battery {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   color: var(--nord4);
 }
 
-.header-right {
+/* --- workspaces ------------------------------------------------------------
+   The one you are on is lit and the rest are dim but clickable, which is what
+   a Waybar workspace does. They were ten hardcoded digits with the highlight
+   nailed to the 2. */
+.taskbar-workspaces {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: var(--nord5);
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-/* Footer */
-.desktop-footer {
+.taskbar-workspaces li {
+  display: flex;
+  align-items: center;
+}
+
+/* A hairline between workspaces. Drawn, not typed: a literal "|" would be
+   content inside the list, and generated text gets announced by some screen
+   readers. An empty content with a background does not. Same colour as the
+   separators on the right of the bar, so the two read as one idea. */
+.taskbar-workspaces li + li::before {
+  content: "";
+  width: 1px;
+  height: 12px;
+  margin: 0 3px;
+  background: var(--nord9);
+}
+
+/* An inactive workspace is NOT dimmed. --nord3 on this bar measures 1.36:1,
+   which is not subtle, it is unreadable, and there is no way out by picking a
+   softer grey: the active colour itself only reaches 5.03:1, so anything dim
+   enough to sit below it lands under 4.5:1 too. The active one is told apart
+   by hue, by its pill and by its weight instead of by being the brighter of
+   the two, which is what a real Waybar does anyway. */
+/* No fills. A soft translucent rounded rectangle is the house style of every
+   component library going, and it reads as one; a Waybar underlines the
+   workspace you are on. The transparent border is carried by every state so
+   that lighting one up shifts nothing. */
+.workspace {
+  min-width: 24px;
+  height: 22px;
+  padding: 0 7px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--nord4);            /* 7.45:1 */
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.workspace:hover {
+  color: var(--nord6);
+  border-bottom-color: var(--nord3);
+}
+
+/* Weight 500 and not 600: 400 and 500 are the two weights actually shipped in
+   assets/fonts, and asking for one that is not there gets a synthesised bold. */
+.workspace.is-active {
+  color: var(--nord8);            /* 5.03:1 */
+  font-weight: 500;
+  border-bottom-color: var(--nord8);
+}
+
+.workspace:focus-visible {
+  outline: 2px solid var(--nord8);
+  outline-offset: 2px;
+}
+
+/* A real button, so the keyboard reaches it, wearing the look of the text
+   around it: the bar does not style its children. */
+.taskbar-btn {
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.taskbar-btn:hover {
+  color: var(--nord11);
+}
+
+.taskbar-btn:focus-visible {
+  outline: 2px solid var(--nord8);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Shutdown screen. Above everything else: the highest z-index anywhere else
+   in the CSS is 9999 (the terminal). */
+.shutdown-screen {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
-  background: var(--nord1);
-  border-top: 1px solid var(--nord2);
-  z-index: 1000;
-}
-
-.taskbar {
-  height: 100%;
+  inset: 0;
+  z-index: 100000;
   display: flex;
-  align-items: center;
-  padding: 0 8px;
-}
-
-.taskbar-start button {
-  width: 40px;
-  height: 28px;
-  border: none;
-  background: var(--nord2);
-  color: var(--nord4);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* Iconos de escritorio */
-#desktop-area {
-  height: 100vh;
-  position: relative;
-  padding: 60px 20px 60px 20px;
-}
-
-.desktop-icon {
-  position: absolute;
-  cursor: pointer;
-  text-align: center;
-  width: 80px;
-  user-select: none;
-}
-
-.icon-emoji {
-  width: 64px;
-  height: 64px;
-  font-size: 32px;
-  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--nord2);
-  border-radius: 8px;
-  margin: 0 auto 4px;
+  gap: 22px;
+  background: var(--bg-deep);
+  animation: shutdownScreenIn 1100ms ease forwards;
 }
 
-.icon-label {
-  font-size: 11px;
-  color: var(--nord4);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* The PNG is a black icon on transparency. Used as a mask, the colour comes
+   from the theme instead of from the image, so it shows on a dark background. */
+.shutdown-icon {
+  width: 88px;
+  height: 88px;
+  background-color: var(--nord4);
+  -webkit-mask: url('../assets/images/shutdown.png') center / contain no-repeat;
+  mask: url('../assets/images/shutdown.png') center / contain no-repeat;
+  animation: shutdownIconIn 1100ms ease forwards;
+}
+
+.shutdown-text {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+@keyframes shutdownScreenIn {
+  0%   { opacity: 0; }
+  25%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@keyframes shutdownIconIn {
+  0%   { transform: scale(0.8);  opacity: 0; }
+  35%  { transform: scale(1);    opacity: 1; }
+  75%  { transform: scale(1);    opacity: 1; }
+  100% { transform: scale(0.96); opacity: 0.1; }
+}
+
+
+/* The bar's language picker. The dropdown is anchored to its button. */
+.taskbar-lang {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1001;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  min-width: 132px;
+  background: var(--nord1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.lang-menu[hidden] {
+  display: none;
+}
+
+.lang-option {
+  width: 100%;
+  padding: 7px 10px;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lang-option:hover,
+.lang-option:focus-visible {
+  background: rgba(136, 192, 208, 0.12);
+  color: var(--accent);
+  outline: none;
+}
+
+/* The active language is marked: without it the menu never says which one you are on. */
+.lang-option[aria-current="true"] {
+  color: var(--accent);
+}
+
+.lang-option[aria-current="true"]::after {
+  content: " ✓";
+}
+
+
+/* --- phone ------------------------------------------------------------------
+   Last in the file: a media query adds no specificity, so a block above the
+   base rules loses to them on order.
+
+   SXMO's bar is a handful of glyphs and nothing else. Here that means the
+   workspaces go -- one app at a time on a phone, so a workspace number says
+   nothing -- and so do the `|` separators, which were costing 24px of a bar
+   that did not have it to spare. What is left fits: measured at 390px, the
+   bar needed 513px and the screen had 366. */
+/* Nothing on a desktop: a tiling WM has no need of it. */
+.shell-menubar {
+  display: none;
+}
+
+@media (max-width: 699px) {
+  .shell-menubar {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 0 var(--desktop-gap) var(--desktop-gap);
+    /* Plus whatever the phone reserves for its own home gesture. */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--nord1);
+    border: 1px solid var(--nord2);
+    border-radius: var(--radius);
+  }
+
+  .shell-menubar.is-hidden {
+    display: none;
+  }
+
+  .shell-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    height: 48px;
+    background: none;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--nord4);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .shell-menu-btn .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .shell-menu-btn:active {
+    background: var(--nord3);
+    color: var(--nord8);
+  }
+
+  .shell-menu-btn:focus-visible {
+    outline: 2px solid var(--nord8);
+    outline-offset: -2px;
+  }
+
+  .desktop-taskbar {
+    /* 44px, not the desktop's 35: a control cannot offer a 44px touch target
+       inside a 35px bar, and every button in here is a control. */
+    height: 44px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .taskbar-workspaces {
+    display: none;
+  }
+
+  .taskbar-sep {
+    display: none;
+  }
+
+  .taskbar-left {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .taskbar-user {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .taskbar-right {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  /* The target is 44x44 while the glyph stays its own size. */
+  .taskbar-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .desktop-taskbar .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* The language options were 35px tall. dev/layout.py never caught it: the
+     menu is hidden until it is opened, and the touch-target check only looks
+     at what is on screen. */
+  .lang-option {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
 }

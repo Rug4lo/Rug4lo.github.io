@@ -1,0 +1,225 @@
+{
+  "tabTitle": "Machines",
+  "addressBar": "rug4lo://127.0.0.1:3000/Machines",
+  "heading": "Machines",
+  "contentDir": "Writeups/Machines",
+  "items": [
+    {
+      "id": "Blue",
+      "title": "HackTheBox - Blue",
+      "category": "Windows - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "SMB",
+        "MS17-010",
+        "EternalBlue"
+      ]
+    },
+    {
+      "id": "Inject",
+      "title": "HackTheBox - Inject",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "Local File Inclusion",
+        "Spring Cloud Exploitation",
+        "Abusing Cron Job",
+        "Malicious Ansible"
+      ]
+    },
+    {
+      "id": "GoodGames",
+      "title": "HackTheBox - GoodGames",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "SQLI",
+        "Password Reuse",
+        "SSTI",
+        "Docker Breakout"
+      ]
+    },
+    {
+      "id": "PC",
+      "title": "HackTheBox - PC",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "Token Hijacking",
+        "SQL Injection",
+        "ssh",
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "id": "MonitorsTwoo",
+      "title": "HackTheBox - MonitorsTwoo",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "Cacti Exploitation",
+        "Docker Privilege Escalation",
+        "Database Exploitation",
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "id": "Sau",
+      "title": "HackTheBox - Sau",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "SSRF",
+        "RCE - Username Injection",
+        "Abusing sudoers privilege"
+      ]
+    },
+    {
+      "id": "CozyHosting",
+      "title": "HackTheBox - CozyHosting",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "Cookie hijacking",
+        "Os Command Injection",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "id": "Jeeves",
+      "title": "HackTheBox - Jeeves",
+      "category": "Windows - Medium",
+      "difficulty": "Medium",
+      "tags": [
+        "Jenkins Exploitation",
+        "RottenPotato",
+        "Breaking KeePass",
+        "PassTheHash"
+      ]
+    },
+    {
+      "id": "Zipping",
+      "title": "HackTheBox - Zipping",
+      "category": "Linux - Medium",
+      "difficulty": "Medium",
+      "tags": [
+        "SQLI",
+        "SQLI to RCE"
+      ]
+    },
+    {
+      "id": "Jupiter",
+      "title": "HackTheBox - Jupiter",
+      "category": "Linux - Medium",
+      "difficulty": "Medium",
+      "tags": [
+        "PostgreSQL Query Exploitation",
+        "Multiple Privilege Escalation"
+      ]
+    },
+    {
+      "id": "Enterprise",
+      "title": "HackTheBox - Enterprise",
+      "category": "Linux - Medium",
+      "difficulty": "Medium",
+      "tags": [
+        "Debugging",
+        "SQLI Blind",
+        "SQLI Time Based",
+        "Pivoting",
+        "BoF",
+        "Ret2libc"
+      ]
+    },
+    {
+      "id": "Bankrobber",
+      "title": "HackTheBox - Bankrobber",
+      "category": "Windows - Insane",
+      "difficulty": "Insane",
+      "tags": [
+        "Blind XSS Injection",
+        "Cookie hijacking",
+        "SQLI",
+        "Stealing Net-NTLMv2 Hash",
+        "RCE",
+        "Abusing a custom binary"
+      ]
+    },
+    {
+      "id": "PikaTwoo",
+      "title": "HackTheBox - PikaTwoo",
+      "category": "Windows - Insane",
+      "difficulty": "Insane",
+      "tags": [
+        "Information Leakage",
+        "Keystone Exploitation",
+        "Android Hacking",
+        "APK Vulneration",
+        "SSL Bypass",
+        "Signature Bypass",
+        "SQLI",
+        "APISIX Exploitation",
+        "LFI to RCE",
+        "Nginx Exploitation",
+        "Kubernetes Exploitation"
+      ]
+    },
+    {
+      "id": "MYEXPENSE",
+      "title": "Vulnhub - MYEXPENSE",
+      "category": "Linux",
+      "difficulty": "Easy",
+      "tags": [
+        "XSS",
+        "CSRF",
+        "Cookie Hijacking",
+        "SQL",
+        "Cracking Hashes",
+        "Python",
+        "JavaScript"
+      ]
+    },
+    {
+      "id": "CEREAL",
+      "title": "Vulnhub - CEREAL",
+      "category": "Linux",
+      "difficulty": "Easy",
+      "tags": [
+        "Reconocimiento",
+        "PHP",
+        "Deserializacion"
+      ]
+    },
+    {
+      "id": "Slowman",
+      "title": "HackMyVM - Slowman",
+      "category": "Linux",
+      "difficulty": "Easy",
+      "tags": [
+        "Bruteforce",
+        "Capability exploitation"
+      ]
+    },
+    {
+      "id": "Permx",
+      "title": "HackTheBox - Permx",
+      "category": "Linux - Easy",
+      "difficulty": "Easy",
+      "tags": [
+        "RCE",
+        "Privesc"
+      ]
+    },
+    {
+      "id": "Skyfall",
+      "title": "HackTheBox - Skyfall",
+      "category": "Linux - Insane",
+      "difficulty": "Insane",
+      "tags": [
+        "Api Vulneration",
+        "Cloud",
+        "Vault exploitation"
+      ]
+    }
+  ]
+}

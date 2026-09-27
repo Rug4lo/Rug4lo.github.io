@@ -1,0 +1,41 @@
+{
+  "user": "rug4lo",
+  "host": "system",
+  "blocks": [
+    {
+      "command": "whoami",
+      "output": [
+        "Pentester • Red Teamer • Exploit developer"
+      ]
+    },
+    {
+      "command": "cat ~/profile.md",
+      "output": [
+        "My name is Ruben. I like computers since I was a child.",
+        "When I discovered the field of cybersecurity I fell in love with it.",
+        "Now I am trying to learn day by day, improve my skills and help the community with different tools and machine writeups."
+      ]
+    },
+    {
+      "command": "cat ~/all.txt | grep certs",
+      "list": true,
+      "output": [
+        "- OSCP",
+        "- OSCP+",
+        "- eJPTv2",
+        "- DFE, NDE, EHE",
+        "- B2"
+      ]
+    },
+    {
+      "command": "ls languages",
+      "list": true,
+      "output": [
+        "[+] Python ",
+        "[+] C/C++",
+        "[+] Assembly",
+        "[+] Bash / PowerShell"
+      ]
+    }
+  ]
+}

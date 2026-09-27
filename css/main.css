@@ -5,7 +5,6 @@
   --nord1: #3b4252;    /* Fondo secundario */
   --nord2: #434c5e;    /* Superficies */
   --nord3: #4c566a;    /* Bordes/Textos muted */
-  --nord16: #899abb;    /* Bordes/Textos muted */
 
   /* Snow Storm (claros) */
   --nord4: #d8dee9;    /* Texto principal */
@@ -25,29 +24,64 @@
   --nord14: #a3be8c;   /* Verde */
   --nord15: #b48ead;   /* Púrpura */
 
-  /* EXTRAS */
-  --nord16: #eceef4;  /* Snow Storm Ultra */
-  --nord17: #d8dee9cc;/* Snow 75% */
-  --nord18: #e5e9f0cc;/* Snow 75% */
-  
-  /* CYBERPUNK NORD */
-  --cyber-frost:    #88c0d0ff;
-  --cyber-aurora:   #a3be8cff;
-  --cyber-pulse:    #81a1c1ff;
-  --cyber-glow:     #5e81acff;
+  /* nord0, darkened: screens that have to read as "powered off" */
+  --bg-deep: #1a1d24;
 
+  /* Gap between the shell's pieces: the bar today, the tiled windows later.
+     Fixed and not a percentage, so it does not grow with the viewport. */
+  --desktop-gap: 12px;
+
+  /* Breakpoints are NOT tokens: a media query cannot read a custom property.
+     They are written out, and there are exactly two in the whole project:
+
+       max-width: 699px   phone. Below this the desktop metaphor is dropped:
+                          the launcher fills the screen, windows stop floating.
+                          FLOATING_BREAKPOINT in js/system/window.js is 700 and
+                          has to stay one above it.
+       max-width: 980px   narrow desktop. The writeups panel goes to one column.
+
+     dev/render-diff.js fails on any other value, because four of them had
+     already appeared (699, 700, 980) and were starting to drift. */
+
+  /* Desktop windows. The header height is a token because the unfold
+     animation clips against it from a keyframe. */
+  --window-header-height: 34px;
+  --window-radius: 12px;
+  --window-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  --window-accent-glow: 0 0 0 1px rgba(136, 192, 208, 0.35);
+
+  /* Outside the Nord palette on purpose: nord15 (311deg) reads as pink next to
+     a real purple, so the prompt uses this one instead. */
+  --purple: #c792ea;
+
+  /* Terminal surface: darker than the desktop, like a real terminal. */
+  --terminal-bg: #12151a;
+  --terminal-line-height: 1.55;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-window: 950ms;
+
+  /* easeOutCubic. The previous curve, cubic-bezier(0.2, 0.9, 0.2, 1), covered 90%
+     of the distance in the first 35% of the time, so the unfold was over in about
+     147ms of its 420 and nobody could see it. This one gets to 90% at 55%, which
+     over --duration-window means roughly 520ms of visible motion. */
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 
   /* Variables semánticas */
   --bg: var(--nord0);
   --surface: var(--nord1);
   --text: var(--nord4);
-  --text-muted: var(--nord3);
+  --text-muted: var(--nord9);
   --accent: var(--nord8);
   --accent-dim: var(--nord10);
   --border: var(--nord2);
   --radius: 8px;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* A system stack, not a webfont. Inter used to live here, was declared on
+     html/body and then overridden by the mono stack everywhere, so it was a
+     second font download that nothing on screen ever used. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', Arial, sans-serif;
 }
 
 * {
@@ -64,7 +98,18 @@ html, body {
   font-family: var(--font-sans);
 }
 
-#app {
-  width: 100%;
-  height: 100%;
+
+/* One place for reduced motion instead of a copy in every stylesheet.
+   0.01ms and not `none`, on purpose: with `none` the animationend event never
+   fires and the JS that waits for an animation to finish hangs forever. This
+   way it ends immediately and the event still arrives. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

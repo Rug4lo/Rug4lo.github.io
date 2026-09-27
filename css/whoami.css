@@ -1,169 +1,157 @@
-.terminal-window {
-  position: fixed !important;
-  background: var(--nord3);
-  border: 2px solid var(--nord9);
-  box-shadow: 0 0 10px #357977;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  color: var(--nord4);
-  z-index: 9999;
-  resize: both;
-  overflow: hidden;
-  border-radius: 18px;
-}
+/* css/whoami.css - terminal content. The window chrome is in css/window.css. */
 
-.terminal-header {
-  background: var(--nord2);
-  padding: 8px 20px;
-  cursor: move;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #333;
-  user-select: none;
+.terminal {
+  background: var(--terminal-bg);
 }
 
 .terminal-output {
-  height: calc(100%);
-  padding: 0px;
-  outline: none;
+  height: 100%;
   overflow-y: auto;
-  background: #12151a;
-  white-space: pre-wrap;
-  line-height: 0.6;
-  cursor: default !important; 
-}
+  padding: 14px 18px 22px;
+  font-size: 13px;
 
-.prompt { color: var(--nord8); }
+  /* Was 0.6, which gave an 8.4px line box and made wrapped lines overlap. */
+  line-height: var(--terminal-line-height);
 
-.terminal-resizers {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-}
-
-.resizer {
-  position: absolute;
-  background: transparent;
-  pointer-events: auto;
-}
-
-.terminal-line { 
-  display: flex;
-  align-items: baseline;
-  white-space: pre;
-  margin: 3px 0 !important; 
-  padding-left: 25px !important; 
-}
-
-.resizer-right { right: 0; top: 0; width: 8px; height: 100%; cursor: col-resize; }
-.resizer-bottom { bottom: 0; left: 0; height: 8px; width: 100%; cursor: row-resize; }
-.resizer-corner { bottom: 0; right: 0; width: 12px; height: 12px; cursor: se-resize; }
-
-.output a { color: #44ddff; text-decoration: underline; }
-
-.typewriter-mode {
-  pointer-events: auto !important;
-}
-
-.terminal-header {
-  background: linear-gradient(15deg, #12151a 0%, #2a2f3a 50%, #12151a 100%);
-}
-
-.window-controls {
-  display: flex;
-  gap: 4px;
-}
-
-.window-controls button {
-  width: 28px;
-  height: 28px;
-  background: transparent;
-  border: none;
-  color: var(--nord4);
-  cursor: pointer;
-}
-
-.window-controls button:hover {
-  color: var(--nord8);
-}
-
-.prompt {
-  color: var(--nord4);
-  font-weight: bold;
-  margin-right: 6px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 768px) {
-  .terminal-window {
-    width: 90vw !important;
-    height: 70vh !important;
-    font-size: 12px;
-  }
-}
-
-.draggable-terminal .terminal-output {
-  user-select: none !important;
-  pointer-events: none !important;
-}
-
-.cursor {
-  animation: blink 1s infinite;
-  color: var(--nord4);
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-.terminal-header { cursor: move !important; }
-
-.terminal-output {
-  scrollbar-width: thin !important;
-  scrollbar-color: #5e81ac transparent !important;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nord10) transparent;
 }
 
 .terminal-output::-webkit-scrollbar {
-  width: 10px !important;
+  width: 10px;
 }
 
 .terminal-output::-webkit-scrollbar-track {
-  background: transparent !important;
+  background: transparent;
 }
 
 .terminal-output::-webkit-scrollbar-thumb {
-  background: #5e81ac !important;  
-  border-radius: 5px !important;
-  border: 2px solid transparent !important;
+  background: var(--nord10);
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background-clip: content-box;
 }
 
 .terminal-output::-webkit-scrollbar-thumb:hover {
-  background: #81a1c1 !important;  
-  box-shadow: 0 0 8px rgba(94,129,172,0.6) !important;
+  background: var(--nord9);
+  background-clip: content-box;
 }
 
-.output-line {
-  color: var(--nord18);
-  line-height: 1;
+.terminal-output ::selection {
+  background: rgba(136, 192, 208, 0.28);
 }
 
-.terminal-output {
-  overflow-y: auto !important;  
+.terminal-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
 }
 
-/* Animación de entrada */
-.terminal-window.is-opening {
-  animation: terminal-pop-in 1000ms cubic-bezier(.2,.9,.2,1) both;
+/* Scoped on purpose: `prompt` and `command` are generic names and used to
+   collide with rules from another stylesheet. */
+.terminal-output .prompt {
+  flex-shrink: 0;
+  font-weight: 600;
 }
 
-@keyframes terminal-pop-in {
-  0%   { opacity: 0; transform: translateY(500px) scale(0.98); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+/* One colour per part of the prompt, like a real shell. Measured against
+   --terminal-bg: purple 7.60, cyan 9.14, blue 6.80, punctuation 4.54. */
+.terminal-output .prompt-bracket,
+.terminal-output .prompt-at {
+  color: var(--nord10);
+  font-weight: 400;
 }
 
-/* Accesibilidad: respeta reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .terminal-window.is-opening { animation: none; }
+.terminal-output .prompt-user { color: var(--purple); }
+.terminal-output .prompt-host { color: var(--nord8); }
+
+.terminal-output .command {
+  color: var(--nord9);
+}
+
+.terminal-output .output-group,
+.terminal-output .output-list {
+  margin: 2px 0 14px;
+  padding-left: 1.1rem;
+  list-style: none;
+}
+
+.terminal-output .output-line {
+  margin: 0;
+  color: var(--nord5);
+}
+
+.terminal-line--cursor {
+  margin-top: 2px;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--nord9);
+  vertical-align: text-bottom;
+  /* Ends on opacity 1 so that a single truncated cycle under reduced motion
+     leaves the caret visible instead of hidden. */
+  animation: terminalBlink 1.1s steps(1, end) infinite;
+}
+
+@keyframes terminalBlink {
+  0%, 49%   { opacity: 1; }
+  50%, 99%  { opacity: 0; }
+  100%      { opacity: 1; }
+}
+
+/* --- typing ---------------------------------------------------------------
+   `.is-typing` is only added when the visitor has not asked for reduced
+   motion, so there is no separate reduced-motion branch to keep in step: with
+   it off, everything renders at once.
+   Each command carries its own --chars, --type-duration and --type-delay, set
+   from JS, which is what lets steps() advance one character at a time. */
+
+.terminal-output.is-typing .command {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  border-right: 2px solid var(--nord9);
+
+  /* Two animations: the reveal, and a single frame afterwards that puts the
+     caret out once this command has finished. */
+  animation-name: terminalType, terminalCaretOff;
+  animation-duration: var(--type-duration), 1ms;
+  animation-delay: var(--type-delay), calc(var(--type-delay) + var(--type-duration));
+  animation-timing-function: steps(var(--chars), end), linear;
+  animation-fill-mode: both, forwards;
+}
+
+@keyframes terminalType {
+  from { width: 0; }
+  to   { width: calc(var(--chars) * 1ch); }
+}
+
+@keyframes terminalCaretOff {
+  to { border-right-color: transparent; }
+}
+
+/* Each line appears with its own command: otherwise every prompt shows up at
+   once and only the commands type in, which reads as a form, not a terminal. */
+.terminal-output.is-typing .terminal-line,
+.terminal-output.is-typing .output-group,
+.terminal-output.is-typing .output-list {
+  animation: terminalReveal var(--duration-fast) ease var(--type-delay) both;
+}
+
+@keyframes terminalReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (max-width: 699px) {
+  .terminal-output {
+    font-size: 12px;
+    padding: 12px 14px 18px;
+  }
 }

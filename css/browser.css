@@ -7,10 +7,6 @@
 }
 
 
-.rofi-wrapper.rofi-close {
-  opacity: 0;
-  transform: scale(0.95) translateY(-20px);
-}
 
 
 /* ===== NAVEGADOR TIPO BROWSER ===== */
@@ -48,21 +44,8 @@
 }
 
 
-.browser-tab.rofi-close {
-  animation: browserClose 500ms ease forwards;
-}
 
 
-@keyframes browserClose {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-}
 
 
 /* ===== BARRA DE PESTAÑAS (ARRIBA) ===== */
@@ -151,21 +134,39 @@
 
 
 .browser-btn {
+  /* Centred explicitly: the <button> user-agent style used to do this, so the
+     glyph jumped to the corner the moment the element stopped being a button. */
+  display: grid;
+  place-items: center;
+
   width: 42px;
   height: 42px;
   background: var(--nord2);
-  border: 0px solid var(--nord3);
-  color: var(--nord4);
-  cursor: pointer;
+  border: 0;
   border-radius: 8px;
+  color: var(--nord4);
+  font-family: inherit;
   font-size: 14px;
-  transition: all 150ms ease;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease;
+}
+
+/* The ••• is chrome, not a control: it must not look clickable. */
+.browser-btn--static {
+  cursor: default;
 }
 
 
-.browser-btn:hover {
+.browser-btn:not(.browser-btn--static):hover {
   color: var(--nord8);
   background: rgba(97, 138, 191, 0.18);
+}
+
+.browser-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--accent);
 }
 
 
@@ -208,63 +209,15 @@
   font-family: var(--font-mono);
 }
 
-/* Terminal Styles */
-.terminal {
-  font-family: var(--font-mono);
-  color: var(--nord4);
-  background: var(--nord0);
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid var(--nord3);
-}
 
-.system-info {
-  margin-bottom: 20px;
-}
 
-.system-info h1 {
-  color: var(--nord8);
-  font-size: 18px;
-  margin-bottom: 10px;
-}
 
-.links {
-  color: var(--nord6);
-}
 
-.links a {
-  color: var(--nord10);
-  text-decoration: none;
-}
 
-.links a:hover {
-  text-decoration: underline;
-}
 
-.command-line {
-  margin: 10px 0;
-  color: var(--nord4);
-}
 
-.prompt {
-  color: var(--nord10);
-}
 
-.output {
-  margin-left: 20px;
-  margin-bottom: 20px;
-  color: var(--nord5);
-  line-height: 1.5;
-}
 
-.output a {
-  color: var(--nord10);
-  text-decoration: none;
-}
-
-.output a:hover {
-  text-decoration: underline;
-}
 
 /* Scrollbar personalizada */
 .browser-content::-webkit-scrollbar {
@@ -288,7 +241,29 @@
 }
 
 /* Animación de entrada */
-@keyframes writeupsIn {
-  from { opacity: 0; transform: translateY(18px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+
+
+/* --- phone ------------------------------------------------------------------
+   No chrome. SXMO does not wrap an app in anything, and the tab strip, the
+   back/forward/reload row, the fake address bar and the ••• were costing 82px
+   of an 844px screen for a joke the real browser already tells better -- its
+   own address bar is right underneath, showing the actual URL. Getting out of
+   here is the shell's menu bar, which is a 48px target instead of the 36x32
+   and 42x42 these offered. */
+@media (max-width: 699px) {
+  .browser-tabsbar,
+  .browser-bar {
+    display: none;
+  }
+
+  /* Back into normal flow. The desktop pins this frame with `position:
+     absolute; top: 70px; bottom: 16px` against the viewport, which knows
+     nothing about the menu bar and covered it. As a flex child it simply
+     takes the space the two bars leave. */
+  .browser-tab {
+    position: static;
+    inset: auto;
+    height: 100%;
+    border-radius: var(--radius);
+  }
 }

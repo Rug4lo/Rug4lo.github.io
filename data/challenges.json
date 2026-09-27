@@ -1,0 +1,29 @@
+{
+  "tabTitle": "Challenges",
+  "addressBar": "rug4lo://127.0.0.1:3000/Challenges",
+  "heading": "Challenges",
+  "contentDir": "Writeups/Challenges",
+  "items": [
+    {
+      "id": "Raxer",
+      "title": "Crackmes.one - Raxer",
+      "category": "Windows x86 (32-bit) - Reversing",
+      "difficulty": "Reversing",
+      "tags": [
+        "Windows",
+        "Static reverse engineering"
+      ]
+    },
+    {
+      "id": "IOLI",
+      "title": "IOLI Levels 1/9",
+      "category": "Windows x64 (64-bit) - Reversing",
+      "difficulty": "Reversing",
+      "tags": [
+        "Windows",
+        "Static reverse engineering",
+        "Automatic keygen"
+      ]
+    }
+  ]
+}
